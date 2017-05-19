@@ -6,12 +6,15 @@ import java.util.UUID;
 
 public class TaxPayerProfile {
 
+	public static final String BASIC_CONSUMER_EXPENDITURE_PROFILE_KEY = "BASIC";
+	
 	private String taxPayerProfileKey;
 	private Date timestamp;
 	private String postalCode;
 	private List<String> politicalDivisionKeys;
 	private MonetaryAmount annualIncome;
 	private MonetaryAmount mortgageInterest;
+	private String consumerExpenditureProfileKey;
 
 	/**
 	 * 
@@ -20,6 +23,7 @@ public class TaxPayerProfile {
 		super();
 		this.timestamp = new Date();
 		this.taxPayerProfileKey = UUID.randomUUID().toString();
+		this.consumerExpenditureProfileKey = BASIC_CONSUMER_EXPENDITURE_PROFILE_KEY;
 	}
 
 	/**
@@ -38,6 +42,26 @@ public class TaxPayerProfile {
 		this.politicalDivisionKeys = politicalDivisionKeys;
 		this.annualIncome = annualIncome;
 		this.mortgageInterest = mortgageInterest;
+		this.consumerExpenditureProfileKey = BASIC_CONSUMER_EXPENDITURE_PROFILE_KEY;
+	}
+
+	/**
+	 * @param taxPayerProfileKey
+	 * @param timestamp
+	 * @param postalCode
+	 * @param politicalDivisionKeys
+	 * @param annualIncome
+	 * @param mortgageInterest
+	 */
+	public TaxPayerProfile(String postalCode, List<String> politicalDivisionKeys, MonetaryAmount annualIncome, MonetaryAmount mortgageInterest, String consumerExpenditureProfileKey) {
+		super();
+		this.timestamp = new Date();
+		this.taxPayerProfileKey = UUID.randomUUID().toString();
+		this.postalCode = postalCode;
+		this.politicalDivisionKeys = politicalDivisionKeys;
+		this.annualIncome = annualIncome;
+		this.mortgageInterest = mortgageInterest;
+		this.consumerExpenditureProfileKey = consumerExpenditureProfileKey;
 	}
 
 	/**
@@ -49,7 +73,7 @@ public class TaxPayerProfile {
 	 * @param mortgageInterest
 	 */
 	public TaxPayerProfile(String taxPayerProfileKey, Date timestamp, String postalCode,
-			List<String> politicalDivisionKeys, MonetaryAmount annualIncome, MonetaryAmount mortgageInterest) {
+			List<String> politicalDivisionKeys, MonetaryAmount annualIncome, MonetaryAmount mortgageInterest, String consumerExpenditureProfileKey) {
 		super();
 		if (taxPayerProfileKey == null) {
 			this.taxPayerProfileKey = UUID.randomUUID().toString();
@@ -65,6 +89,7 @@ public class TaxPayerProfile {
 		this.politicalDivisionKeys = politicalDivisionKeys;
 		this.annualIncome = annualIncome;
 		this.mortgageInterest = mortgageInterest;
+		this.consumerExpenditureProfileKey = consumerExpenditureProfileKey;
 	}
 
 	/**
@@ -151,6 +176,20 @@ public class TaxPayerProfile {
 		this.mortgageInterest = mortgageInterest;
 	}
 
+	/**
+	 * @return the consumerExpenditureProfileKey
+	 */
+	public String getConsumerExpenditureProfileKey() {
+		return consumerExpenditureProfileKey;
+	}
+
+	/**
+	 * @param consumerExpenditureProfileKey the consumerExpenditureProfileKey to set
+	 */
+	public void setConsumerExpenditureProfileKey(String consumerExpenditureProfileKey) {
+		this.consumerExpenditureProfileKey = consumerExpenditureProfileKey;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -159,6 +198,7 @@ public class TaxPayerProfile {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((annualIncome == null) ? 0 : annualIncome.hashCode());
+		result = prime * result + ((consumerExpenditureProfileKey == null) ? 0 : consumerExpenditureProfileKey.hashCode());
 		result = prime * result + ((mortgageInterest == null) ? 0 : mortgageInterest.hashCode());
 		result = prime * result + ((politicalDivisionKeys == null) ? 0 : politicalDivisionKeys.hashCode());
 		result = prime * result + ((postalCode == null) ? 0 : postalCode.hashCode());
@@ -183,6 +223,11 @@ public class TaxPayerProfile {
 			if (other.annualIncome != null)
 				return false;
 		} else if (!annualIncome.equals(other.annualIncome))
+			return false;
+		if (consumerExpenditureProfileKey == null) {
+			if (other.consumerExpenditureProfileKey != null)
+				return false;
+		} else if (!consumerExpenditureProfileKey.equals(other.consumerExpenditureProfileKey))
 			return false;
 		if (mortgageInterest == null) {
 			if (other.mortgageInterest != null)
@@ -219,7 +264,8 @@ public class TaxPayerProfile {
 	public String toString() {
 		return "TaxPayerProfile [taxPayerProfileKey=" + taxPayerProfileKey + ", timestamp=" + timestamp
 				+ ", postalCode=" + postalCode + ", politicalDivisionKeys=" + politicalDivisionKeys + ", annualIncome="
-				+ annualIncome + ", mortgageInterest=" + mortgageInterest + "]";
+				+ annualIncome + ", mortgageInterest=" + mortgageInterest + ", consumerExpenditureProfileKey="
+				+ consumerExpenditureProfileKey + "]";
 	}
 
 }

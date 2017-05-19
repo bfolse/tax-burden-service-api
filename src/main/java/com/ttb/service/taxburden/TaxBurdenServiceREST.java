@@ -8,13 +8,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ttb.service.taxburden.domain.PostalCodePoliticalDivision;
 import com.ttb.service.taxburden.domain.TaxBurdenReport;
 import com.ttb.service.taxburden.domain.TaxPayerProfile;
 
 public interface TaxBurdenServiceREST {
 	@RequestMapping(path="/political-division-lookup", method=RequestMethod.GET)
-	public @ResponseBody List<PostalCodePoliticalDivision> politicalDivisionLookup(@RequestParam(value="postalCode") String postalCode);
+	public @ResponseBody List<String> politicalDivisionLookup(@RequestParam(value="postalCode") String postalCode);
 
     @RequestMapping(path="/tax-burden", method=RequestMethod.GET)
     public @ResponseBody TaxBurdenReport getReport(@RequestParam(value="key", required=true) String key);
