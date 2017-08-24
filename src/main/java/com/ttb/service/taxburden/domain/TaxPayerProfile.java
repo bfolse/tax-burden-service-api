@@ -14,6 +14,7 @@ public class TaxPayerProfile {
 	private List<String> politicalDivisionKeys;
 	private MonetaryAmount annualIncome;
 	private MonetaryAmount mortgageInterest;
+	private MonetaryAmount realPropertyMarketValue;
 	private String consumerExpenditureProfileKey;
 
 	/**
@@ -34,7 +35,7 @@ public class TaxPayerProfile {
 	 * @param annualIncome
 	 * @param mortgageInterest
 	 */
-	public TaxPayerProfile(String postalCode, List<String> politicalDivisionKeys, MonetaryAmount annualIncome, MonetaryAmount mortgageInterest) {
+	public TaxPayerProfile(String postalCode, List<String> politicalDivisionKeys, MonetaryAmount annualIncome, MonetaryAmount mortgageInterest, MonetaryAmount realPropertyMarketValue) {
 		super();
 		this.timestamp = new Date();
 		this.taxPayerProfileKey = UUID.randomUUID().toString();
@@ -42,6 +43,7 @@ public class TaxPayerProfile {
 		this.politicalDivisionKeys = politicalDivisionKeys;
 		this.annualIncome = annualIncome;
 		this.mortgageInterest = mortgageInterest;
+		this.realPropertyMarketValue = realPropertyMarketValue;
 		this.consumerExpenditureProfileKey = BASIC_CONSUMER_EXPENDITURE_PROFILE_KEY;
 	}
 
@@ -53,7 +55,7 @@ public class TaxPayerProfile {
 	 * @param annualIncome
 	 * @param mortgageInterest
 	 */
-	public TaxPayerProfile(String postalCode, List<String> politicalDivisionKeys, MonetaryAmount annualIncome, MonetaryAmount mortgageInterest, String consumerExpenditureProfileKey) {
+	public TaxPayerProfile(String postalCode, List<String> politicalDivisionKeys, MonetaryAmount annualIncome, MonetaryAmount mortgageInterest, MonetaryAmount realPropertyMarketValue, String consumerExpenditureProfileKey) {
 		super();
 		this.timestamp = new Date();
 		this.taxPayerProfileKey = UUID.randomUUID().toString();
@@ -61,6 +63,7 @@ public class TaxPayerProfile {
 		this.politicalDivisionKeys = politicalDivisionKeys;
 		this.annualIncome = annualIncome;
 		this.mortgageInterest = mortgageInterest;
+		this.realPropertyMarketValue = realPropertyMarketValue;
 		this.consumerExpenditureProfileKey = consumerExpenditureProfileKey;
 	}
 
@@ -73,7 +76,7 @@ public class TaxPayerProfile {
 	 * @param mortgageInterest
 	 */
 	public TaxPayerProfile(String taxPayerProfileKey, Date timestamp, String postalCode,
-			List<String> politicalDivisionKeys, MonetaryAmount annualIncome, MonetaryAmount mortgageInterest, String consumerExpenditureProfileKey) {
+			List<String> politicalDivisionKeys, MonetaryAmount annualIncome, MonetaryAmount mortgageInterest, MonetaryAmount realPropertyMarketValue, String consumerExpenditureProfileKey) {
 		super();
 		if (taxPayerProfileKey == null) {
 			this.taxPayerProfileKey = UUID.randomUUID().toString();
@@ -89,6 +92,7 @@ public class TaxPayerProfile {
 		this.politicalDivisionKeys = politicalDivisionKeys;
 		this.annualIncome = annualIncome;
 		this.mortgageInterest = mortgageInterest;
+		this.realPropertyMarketValue = realPropertyMarketValue;
 		this.consumerExpenditureProfileKey = consumerExpenditureProfileKey;
 	}
 
@@ -177,6 +181,20 @@ public class TaxPayerProfile {
 	}
 
 	/**
+	 * @return the realPropertyMarketValue
+	 */
+	public MonetaryAmount getRealPropertyMarketValue() {
+		return realPropertyMarketValue;
+	}
+
+	/**
+	 * @param realPropertyMarketValue the realPropertyMarketValue to set
+	 */
+	public void setRealPropertyMarketValue(MonetaryAmount realPropertyMarketValue) {
+		this.realPropertyMarketValue = realPropertyMarketValue;
+	}
+
+	/**
 	 * @return the consumerExpenditureProfileKey
 	 */
 	public String getConsumerExpenditureProfileKey() {
@@ -190,82 +208,52 @@ public class TaxPayerProfile {
 		this.consumerExpenditureProfileKey = consumerExpenditureProfileKey;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((annualIncome == null) ? 0 : annualIncome.hashCode());
-		result = prime * result + ((consumerExpenditureProfileKey == null) ? 0 : consumerExpenditureProfileKey.hashCode());
-		result = prime * result + ((mortgageInterest == null) ? 0 : mortgageInterest.hashCode());
-		result = prime * result + ((politicalDivisionKeys == null) ? 0 : politicalDivisionKeys.hashCode());
-		result = prime * result + ((postalCode == null) ? 0 : postalCode.hashCode());
-		result = prime * result + ((taxPayerProfileKey == null) ? 0 : taxPayerProfileKey.hashCode());
-		result = prime * result + ((timestamp == null) ? 0 : timestamp.hashCode());
-		return result;
-	}
+	public boolean equals(Object object) {
+		if (this == object) return true;
+		if (object == null || getClass() != object.getClass()) return false;
+		if (!super.equals(object)) return false;
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
+		TaxPayerProfile that = (TaxPayerProfile) object;
+
+		if (taxPayerProfileKey != null ? !taxPayerProfileKey.equals(that.taxPayerProfileKey) : that.taxPayerProfileKey != null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (postalCode != null ? !postalCode.equals(that.postalCode) : that.postalCode != null) return false;
+		if (politicalDivisionKeys != null ? !politicalDivisionKeys.equals(that.politicalDivisionKeys) : that.politicalDivisionKeys != null)
 			return false;
-		TaxPayerProfile other = (TaxPayerProfile) obj;
-		if (annualIncome == null) {
-			if (other.annualIncome != null)
-				return false;
-		} else if (!annualIncome.equals(other.annualIncome))
+		if (annualIncome != null ? !annualIncome.equals(that.annualIncome) : that.annualIncome != null) return false;
+		if (mortgageInterest != null ? !mortgageInterest.equals(that.mortgageInterest) : that.mortgageInterest != null)
 			return false;
-		if (consumerExpenditureProfileKey == null) {
-			if (other.consumerExpenditureProfileKey != null)
-				return false;
-		} else if (!consumerExpenditureProfileKey.equals(other.consumerExpenditureProfileKey))
+		if (realPropertyMarketValue != null ? !realPropertyMarketValue.equals(that.realPropertyMarketValue) : that.realPropertyMarketValue != null)
 			return false;
-		if (mortgageInterest == null) {
-			if (other.mortgageInterest != null)
-				return false;
-		} else if (!mortgageInterest.equals(other.mortgageInterest))
+		if (consumerExpenditureProfileKey != null ? !consumerExpenditureProfileKey.equals(that.consumerExpenditureProfileKey) : that.consumerExpenditureProfileKey != null)
 			return false;
-		if (politicalDivisionKeys == null) {
-			if (other.politicalDivisionKeys != null)
-				return false;
-		} else if (!politicalDivisionKeys.equals(other.politicalDivisionKeys))
-			return false;
-		if (postalCode == null) {
-			if (other.postalCode != null)
-				return false;
-		} else if (!postalCode.equals(other.postalCode))
-			return false;
-		if (taxPayerProfileKey == null) {
-			if (other.taxPayerProfileKey != null)
-				return false;
-		} else if (!taxPayerProfileKey.equals(other.taxPayerProfileKey))
-			return false;
-		if (timestamp == null) {
-			if (other.timestamp != null)
-				return false;
-		} else if (!timestamp.equals(other.timestamp))
-			return false;
+
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "TaxPayerProfile [taxPayerProfileKey=" + taxPayerProfileKey + ", timestamp=" + timestamp
-				+ ", postalCode=" + postalCode + ", politicalDivisionKeys=" + politicalDivisionKeys + ", annualIncome="
-				+ annualIncome + ", mortgageInterest=" + mortgageInterest + ", consumerExpenditureProfileKey="
-				+ consumerExpenditureProfileKey + "]";
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (taxPayerProfileKey != null ? taxPayerProfileKey.hashCode() : 0);
+		result = 31 * result + (postalCode != null ? postalCode.hashCode() : 0);
+		result = 31 * result + (politicalDivisionKeys != null ? politicalDivisionKeys.hashCode() : 0);
+		result = 31 * result + (annualIncome != null ? annualIncome.hashCode() : 0);
+		result = 31 * result + (mortgageInterest != null ? mortgageInterest.hashCode() : 0);
+		result = 31 * result + (realPropertyMarketValue != null ? realPropertyMarketValue.hashCode() : 0);
+		result = 31 * result + (consumerExpenditureProfileKey != null ? consumerExpenditureProfileKey.hashCode() : 0);
+		return result;
 	}
 
+	@java.lang.Override
+	public java.lang.String toString() {
+		return "TaxPayerProfile{" +
+				"taxPayerProfileKey='" + taxPayerProfileKey + '\'' +
+				", timestamp=" + timestamp +
+				", postalCode='" + postalCode + '\'' +
+				", politicalDivisionKeys=" + politicalDivisionKeys +
+				", annualIncome=" + annualIncome +
+				", mortgageInterest=" + mortgageInterest +
+				", realPropertyMarketValue=" + realPropertyMarketValue +
+				", consumerExpenditureProfileKey='" + consumerExpenditureProfileKey + '\'' +
+				'}';
+	}
 }
